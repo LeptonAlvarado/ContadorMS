@@ -16,8 +16,8 @@
 int countTimer;
 void isr_timer0()
 {
-    //countTimer++;
-    set_timer0();
+    countTimer++;
+    set_timer0(100);
 }
 
 #int_RDA
@@ -31,7 +31,7 @@ void main()
 {
     setup_oscillator(OSC_16MHZ);
     setup_adc_ports(NO_ANALOGS);
-    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_8);
+    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_64|RTCC_8_BIT);
     enable_interrupts(INT_TIMER0);
     enable_interrupts(INT_RDA);
     enable_interrupts(GLOBAL);
