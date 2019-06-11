@@ -4,10 +4,11 @@
 #use delay(clock=40000000)
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
 #use fast_io(b)
-
-#int_timer0
 int16 countMS;
 int countLed;
+char letra;
+
+#int_timer0
 void isr_timer0()
 {
     countMS++;
@@ -16,13 +17,9 @@ void isr_timer0()
 }
 
 #int_RDA
-char letra;
 void isr_serial()
 {
-    if(kbhit(1))
-    {
-        letra = getch();
-    }
+    letra = getch();
 }
 
 
@@ -37,14 +34,14 @@ void main()
     set_tris_b(0x00);
     int16 muestraMS = 0;
     int estadoLed = 0;
+    printf("Bienvenido, que desea hacer? [R] Poner en 0 [S] Inicia la cuenta [A] Parar y mostrar");
     while(TRUE)
     {
-    printf("Bienvenido, que desea hacer? [R] Poner en 0 [S] Inicia la cuenta [A] Parar y mostrar");
-    switch(letra)
-    {
-        case 'R':
-            countMS = 0;
-            muestraMS = 0;
+        switch(letra)
+            {
+                case 'R':
+                countMS = 0;
+                muestraMS = 0;
             break;
         case 'S':
             countMs = muestraMs;
@@ -52,9 +49,7 @@ void main()
         case 'A':
             muestraMS = countMS;
             printf("La cuenta es: %lu\n", muestraMS);
-            break;
-        default:
-            printf("Letra incorrecta");
+            letra = 'd';
             break;
     }
     if(countLed == 100)   
