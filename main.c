@@ -9,7 +9,7 @@
 #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O
 #FUSES NOXINST                  //Extended set extension and Indexed Addressing mode disabled (Legacy mode)
 
-//#use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
+#use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
 //#use fast_io(a)
 
 #int_timer0
@@ -21,8 +21,13 @@ void isr_timer0()
 }
 
 #int_RDA
+char letra;
 void isr_serial()
 {
+    if(kbhit())
+    {
+        letra = getch();
+    }
 }
 
 #use delay(clock=16000000)
@@ -35,9 +40,21 @@ void main()
     enable_interrupts(INT_TIMER0);
     enable_interrupts(INT_RDA);
     enable_interrupts(GLOBAL);
-    printf("Bienvenido, que desea hacer?");
     while(TRUE)
     {
+    printf("Bienvenido, que desea hacer? [R] Poner en 0 [S] Inicia la cuenta [A] Parar y mostrar");
+    switch(letra)
+    {
+        case 'R':
+            break;
+        case 'S':
+            break;
+        case 'A':
+            break;
+        default:
+            printf("Letra incorrecta");
+            break;
+    }
        
     }
 }
