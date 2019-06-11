@@ -1,13 +1,6 @@
-#include<18LF4620.h>
-#FUSES NOWDT                    //No Watch Dog Timer
-#FUSES NOFCMEN                  //Fail-safe clock monitor disabled
-#FUSES NOIESO                   //Internal External Switch Over mode disabled
-#FUSES PUT                      //Power Up Timer
-#FUSES NOBROWNOUT               //No brownout reset
-#FUSES NOPBADEN                 //PORTB pins are configured as digital I/O on RESET
-#FUSES NOLPT1OSC                //Timer1 configured for higher power operation
-#FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O
-#FUSES NOXINST                  //Extended set extension and Indexed Addressing mode disabled (Legacy mode)
+#include<18F4620.h>
+#fuses HS, NOFCMEN, NOIESO, PUT, NOBROWNOUT, NOWDT
+#fuses NOPBADEN, STVREN, NOLVP, NODEBUG
 
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
 #use fast_io(b)
@@ -36,7 +29,7 @@ void isr_serial()
 
 void main()
 {
-    setup_oscillator(OSC_16MHZ);
+    setup_oscillator(OSC_40MHZ);
     setup_adc_ports(NO_ANALOGS);
     setup_timer_0(RTCC_INTERNAL|RTCC_DIV_64|RTCC_8_BIT);
     enable_interrupts(INT_TIMER0);
