@@ -44,6 +44,7 @@ void main()
     enable_interrupts(GLOBAL);
     set_tris_b(0x00);
     int16 muestraMS = 0;
+    int estadoLed = 0;
     while(TRUE)
     {
     printf("Bienvenido, que desea hacer? [R] Poner en 0 [S] Inicia la cuenta [A] Parar y mostrar");
@@ -64,6 +65,20 @@ void main()
             printf("Letra incorrecta");
             break;
     }
-       
+    if(countLed == 100)   
+    {
+       if (estadoLed == 0)
+       {
+          estadoLed = 1;
+          output_high(PIN_B0);
+          countLed = 0;
+       }
+       else
+       {
+          estadoLed = 0;
+          output_low(PIN_B0);
+          countLed = 0;
+       }
+    }
     }
 }
