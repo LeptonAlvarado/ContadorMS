@@ -10,13 +10,15 @@
 #FUSES NOXINST                  //Extended set extension and Indexed Addressing mode disabled (Legacy mode)
 
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
-//#use fast_io(a)
+#use fast_io(b)
 
 #int_timer0
-int countMS;
+int16 countMS;
+int countLed;
 void isr_timer0()
 {
     countMS++;
+    countLed++;
     set_timer0(100);
 }
 
@@ -40,7 +42,8 @@ void main()
     enable_interrupts(INT_TIMER0);
     enable_interrupts(INT_RDA);
     enable_interrupts(GLOBAL);
-    int muestraMS = 0;
+    set_tris_b(0x00);
+    int16 muestraMS = 0;
     while(TRUE)
     {
     printf("Bienvenido, que desea hacer? [R] Poner en 0 [S] Inicia la cuenta [A] Parar y mostrar");
@@ -55,7 +58,7 @@ void main()
             break;
         case 'A':
             muestraMS = countMS;
-            printf("La cuenta es: %d",muestraMS);
+            printf("La cuenta es: %lu\n", muestraMS);
             break;
         default:
             printf("Letra incorrecta");
