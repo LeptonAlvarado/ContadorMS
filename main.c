@@ -13,10 +13,10 @@
 //#use fast_io(a)
 
 #int_timer0
-int countTimer;
+int countMS;
 void isr_timer0()
 {
-    countTimer++;
+    countMS++;
     set_timer0(100);
 }
 
@@ -40,16 +40,22 @@ void main()
     enable_interrupts(INT_TIMER0);
     enable_interrupts(INT_RDA);
     enable_interrupts(GLOBAL);
+    int muestraMS = 0;
     while(TRUE)
     {
     printf("Bienvenido, que desea hacer? [R] Poner en 0 [S] Inicia la cuenta [A] Parar y mostrar");
     switch(letra)
     {
         case 'R':
+            countMS = 0;
+            muestraMS = 0;
             break;
         case 'S':
+            countMs = muestraMs;
             break;
         case 'A':
+            muestraMS = countMS;
+            printf("La cuenta es: %d",muestraMS);
             break;
         default:
             printf("Letra incorrecta");
