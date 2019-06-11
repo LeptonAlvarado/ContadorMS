@@ -1,7 +1,7 @@
 #include<18F4620.h>
 #fuses HS, NOFCMEN, NOIESO, PUT, NOBROWNOUT, NOWDT
 #fuses NOPBADEN, STVREN, NOLVP, NODEBUG
-
+#use delay(clock=40000000)
 #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8)
 #use fast_io(b)
 
@@ -19,17 +19,16 @@ void isr_timer0()
 char letra;
 void isr_serial()
 {
-    if(kbhit())
+    if(kbhit(1))
     {
         letra = getch();
     }
 }
 
-#use delay(clock=40000000)
 
 void main()
 {
-    setup_oscillator(OSC_40MHZ);
+    //setup_oscillator(OSC_40MHZ);
     setup_adc_ports(NO_ANALOGS);
     setup_timer_0(RTCC_INTERNAL|RTCC_DIV_64|RTCC_8_BIT);
     enable_interrupts(INT_TIMER0);
