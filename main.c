@@ -32,10 +32,10 @@ void main()
     setup_oscillator(OSC_16MHZ);
     setup_adc_ports(NO_ANALOGS);
     setup_timer_0(RTCC_INTERNAL|RTCC_DIV_8);
-    set_timer0(15536);
     enable_interrupts(INT_TIMER0);
     enable_interrupts(INT_RDA);
     enable_interrupts(GLOBAL);
+    printf("Bienvenido, que desea hacer?");
     while(TRUE)
     {
        
