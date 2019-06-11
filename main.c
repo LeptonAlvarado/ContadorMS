@@ -32,7 +32,7 @@ void isr_serial()
     }
 }
 
-#use delay(clock=16000000)
+#use delay(clock=40000000)
 
 void main()
 {
